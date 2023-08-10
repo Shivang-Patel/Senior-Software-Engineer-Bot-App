@@ -88,19 +88,22 @@ def final_submission(email, score, job_id):
 
 # ...
 
+def initialize_session_state():
+    if "questions" not in st.session_state:
+        st.session_state.questions = get_interview_questions()
+
+    if "question_index" not in st.session_state:
+        st.session_state.question_index = 0
+        st.session_state.answers = []
+
 def main():
     st.title("xsBot.ai")
     
     st.write(f"Role: {FIXED_JOB_DESCRIPTION}")
     
-    if "questions" not in st.session_state:
-        st.session_state.questions = get_interview_questions()
-    
+    initialize_session_state()
+
     email = st.text_input("Enter your email:")
-    
-    if "question_index" not in st.session_state:
-        st.session_state.question_index = 0
-        st.session_state.answers = []
     
     question_index = st.session_state.question_index
     questions = st.session_state.questions
