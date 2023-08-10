@@ -108,16 +108,12 @@ def main():
     question_index = st.session_state.question_index
     questions = st.session_state.questions
 
-    # Synchronize session state manually
-    st.session_state.question_index = question_index
-    st.session_state.questions = questions
-
     if question_index < len(questions):
         current_question = questions[question_index]
-        answer = st.text_area(f"Q{question_index+1}: {current_question}")
-        st.session_state.answers.append(answer)
-
+        answer = st.text_area(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
+        
         if st.button("Next"):
+            st.session_state.answers.append(answer)
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Submit' to see your score.")
@@ -133,3 +129,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
