@@ -88,14 +88,6 @@ def final_submission(email, score, job_id):
 
 # ...
 
-def initialize_session_state():
-    if "questions" not in st.session_state:
-        st.session_state.questions = get_interview_questions()
-
-    if "question_index" not in st.session_state:
-        st.session_state.question_index = 0
-        st.session_state.answers = []
-
 def main():
     st.title("xsBot.ai")
 
@@ -119,7 +111,7 @@ def main():
         st.write("All questions answered. Click 'Submit' to see your score.")
 
     if st.button("Submit"):
-        answers = st.session_state.answers
+        answers = [st.session_state.answers[i] for i in range(len(questions))]
         score = calculate_and_display_score(questions, answers, email)
 
         if score is not None:
@@ -130,4 +122,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
