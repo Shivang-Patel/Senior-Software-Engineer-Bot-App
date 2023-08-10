@@ -102,16 +102,16 @@ def main():
 
     if question_index < len(questions):
         current_question = questions[question_index]
-        answer = st.text_area(f"Q{question_index + 1}: {current_question}", key=f"answer_{question_index}")
+        answer = st.text_area(f"Q{question_index + 1}: {current_question}")
 
         if st.button("Next"):
-            st.session_state.answers[question_index] = answer
+            st.session_state.answers.append(answer)
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Submit' to see your score.")
 
     if st.button("Submit"):
-        answers = [st.session_state.answers[i] for i in range(len(questions))]
+        answers = st.session_state.answers
         score = calculate_and_display_score(questions, answers, email)
 
         if score is not None:
