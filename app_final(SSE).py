@@ -96,14 +96,14 @@ def main():
     
     if "question_index" not in st.session_state:
         st.session_state.question_index = 0
-        st.session_state.answers = [None] * len(questions)
+        st.session_state.answers = []
     
     question_index = st.session_state.question_index
     
     if question_index < len(questions):
         current_question = questions[question_index]
         answer = st.text_area(f"Q{question_index+1}: {current_question}")
-        st.session_state.answers[question_index] = answer
+        st.session_state.answers.append(answer)
         
         if st.button("Next"):
             st.session_state.question_index += 1
