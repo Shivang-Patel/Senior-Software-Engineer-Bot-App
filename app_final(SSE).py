@@ -108,8 +108,9 @@ def main():
     question_index = st.session_state.question_index
     questions = st.session_state.questions
 
-    # Synchronize session state
-    st.session_state.sync()
+    # Synchronize session state manually
+    st.session_state.question_index = question_index
+    st.session_state.questions = questions
 
     if question_index < len(questions):
         current_question = questions[question_index]
