@@ -86,11 +86,15 @@ def final_submission(email, score, job_id):
 #     client.close()
 
 
+# ...
+
 def main():
     st.title("xsBot.ai")
     
     st.write(f"Role: {FIXED_JOB_DESCRIPTION}")
-    questions = get_interview_questions()
+    
+    if "questions" not in st.session_state:
+        st.session_state.questions = get_interview_questions()
     
     email = st.text_input("Enter your email:")
     
@@ -99,6 +103,7 @@ def main():
         st.session_state.answers = []
     
     question_index = st.session_state.question_index
+    questions = st.session_state.questions
     
     if question_index < len(questions):
         current_question = questions[question_index]
@@ -106,7 +111,6 @@ def main():
         st.session_state.answers.append(answer)
         
         if st.button("Next"):
- #           st.session_state.answers.append(answer)
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Submit' to see your score.")
