@@ -106,6 +106,7 @@ def main():
         st.session_state.answers.append(answer)
         
         if st.button("Next"):
+            st.session_state.answers.append(answer)
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Submit' to see your score.")
