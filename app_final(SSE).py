@@ -91,6 +91,7 @@ def main():
             # Display the calculated score for the current question
             if score is not None:
                 st.write(f"Score for Q{question_index+1}: {score}")
+                final_score = final_score + score
             
             st.session_state.question_index += 1
     else:
