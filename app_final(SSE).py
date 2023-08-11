@@ -85,7 +85,8 @@ def main():
         if st.button("Next"):
             st.session_state.answers.append(answer)  # Append answer to the list
             score= calculate_and_display_score([current_question],[answer],[email])
-            final_score= final_score + score
+            if score is not None:
+                final_score= final_score + score
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Generate Score' to see your score.")
