@@ -74,20 +74,26 @@ def main():
     question_index = st.session_state.question_index
     questions = st.session_state.questions
     
-    with st.form(key='interview_form'):
-        for question_index, current_question in enumerate(questions):
-            answer = st.text_area(f"Q{question_index+1}: {current_question}")
-            st.session_state.answers.append(answer)
+    if question_index < len(questions):
+        current_question = questions[question_index]
         
-        submitted = st.form_submit_button("Submit")
+        # Use a unique key for each text_area to avoid rendering issues
+        answer = st.text_area(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
         
-        if submitted:
-            answers = st.session_state.answers
-            score = calculate_and_display_score(questions, answers, email)
-            
-            if score is not None:
-                st.success(f"Your Score: {score}")
-                final_submission(email, score, "6789")
+        if st.button("Next"):
+            st.session_state.answers.append(answer)  # Append answer to the list
+            st.session_state.question_index += 1
+    else:
+        st.write("All questions answered. Click 'Submit' to see your score.")
+    
+    if st.button("Submit"):
+        answers = st.session_state.answers
+        score = calculate_and_display_score(questions, answers, email)
+        
+        if score is not None:
+            st.success(f"Your Score: {score}")
+            final_submission(email, score, "6789")
+
 
 if __name__ == "__main__":
     main()
