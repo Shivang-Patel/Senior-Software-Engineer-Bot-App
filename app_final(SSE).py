@@ -114,7 +114,7 @@ def main():
     
     st.write(f"Role: {FIXED_JOB_DESCRIPTION}")
     
-    initialize_session_state()
+    # initialize_session_state()
 
     email = st.text_input("Enter your email:")
     
