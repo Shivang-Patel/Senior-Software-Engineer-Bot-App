@@ -84,6 +84,7 @@ def main():
         final_score = 0
 
         if question_index < len(questions):
+            st.write(f"Current index: {question_index}")
             st.session_state.question_index += 1  # Increment question index
             
             current_question = questions[question_index]
