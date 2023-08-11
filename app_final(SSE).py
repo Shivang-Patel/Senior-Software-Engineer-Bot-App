@@ -88,6 +88,27 @@ def final_submission(email, score, job_id):
 
 # ...
 
+def get_question_score(question,response):
+    prompt = "The question is: "+question+" The answer is: "+response+" Rate the response out of 10 (You can use decimals). \
+    The answer should be specific to role mentioned in the question. JUST MENTION THE SCORE(just numerical value) \
+    AND NOTHING ELSE."
+    answer= openai.Completion.create(
+        engine="text-davinci-002",  # Use appropriate engine (GPT-3) or any upgraded version
+        prompt=prompt,
+        max_tokens=150,  # Adjust this to control the response length
+        stop=None,  # Stop sequences if necessary
+        n=1,  # Number of questions to generate
+    )
+    score = answer['choices'][0]['text']
+    return score
+
+def get_score(questions, answers, email):
+    score=0
+    for i in range(0, len(questions)):
+        curr_score= get_question_score(questions[i], answers[i])
+        score=score+curr_score
+    return {email, score}
+
 def main():
     st.title("xsBot.ai")
 
@@ -112,7 +133,7 @@ def main():
 
     if st.button("Submit"):
         answers = st.session_state.answers
-        score = calculate_and_display_score(questions, answers, email)
+        score =get_Score(questions, answers, email)
 
         if score is not None:
             st.success(f"Your Score: {score}")
