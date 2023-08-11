@@ -80,7 +80,7 @@ def main():
         current_question = questions[question_index]
         
         # Use a unique key for each text_area to avoid rendering issues
-        answer = st.text_area(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
+        answer = st.text_input(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
         
         if st.button("Next"):
             st.session_state.answers.append(answer)  # Append answer to the list
