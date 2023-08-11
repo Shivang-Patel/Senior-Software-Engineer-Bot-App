@@ -144,8 +144,10 @@ def main():
 
     if st.button("Generate Score"):
             final_score= st.session_state.answer1 + st.session_state.answer2 + st.session_state.answer3 + st.session_state.answer4 + st.session_state.answer5
+            # final_score= st.session_state.answer1 + st.session_state.answer2 + st.session_state.answer3 + st.session_state.answer4 + st.session_state.answer5
             st.success(f"Your Score: {final_score}")
             st.write("You can now close the tab")
+            # save_to_mongodb(st.session_state.email, final_score)
 
     
     # if "email" in st.session_state:
