@@ -76,7 +76,7 @@ def main():
 
     final_score=0
     
-    if question_index < len(questions):
+     if question_index < len(questions):
         current_question = questions[question_index]
         
         # Use a unique key for each text_area to avoid rendering issues
@@ -84,9 +84,14 @@ def main():
         
         if st.button("Next"):
             st.session_state.answers.append(answer)  # Append answer to the list
-            score= calculate_and_display_score([current_question],[answer],email)
+            
+            # Calculate the score for the current question
+            score = calculate_and_display_score([current_question], [answer], email)
+            
+            # Display the calculated score for the current question
             if score is not None:
-                final_score= final_score + score
+                st.write(f"Score for Q{question_index+1}: {score}")
+            
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Generate Score' to see your score.")
