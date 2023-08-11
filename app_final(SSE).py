@@ -76,7 +76,7 @@ def main():
 
     final_score=0
     
-     if question_index < len(questions):
+    if question_index < len(questions):
         current_question = questions[question_index]
         
         # Use a unique key for each text_area to avoid rendering issues
