@@ -103,6 +103,7 @@ def main():
     if st.button("Submit Email"):
         st.session_state.email = email
 
+    questions = st.session_state.questions
     
     answer1 = st.text_input(f"Q1: {questions[0]}", key="answer_0")
     
