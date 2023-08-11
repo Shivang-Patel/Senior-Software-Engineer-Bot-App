@@ -106,7 +106,7 @@ def main():
     
     answer1 = st.text_input(f"Q1: {questions[0]}", key="answer_0")
     
-    if(st.button("Submit Answer 1"):
+    if st.button("Submit Answer 1"):
         st.session_state.answer1=answer1
         st.session_state.score1= calculate_and_display_score([questions[0]], [st.session_state.answer1], st.session_state.email)
         st.write(f"Score for Q1: {st.session_state.score1}")
@@ -114,7 +114,7 @@ def main():
 
     answer2 = st.text_input(f"Q2: {questions[1]}", key="answer_1")
     
-    if(st.button("Submit Answer 2"):
+    if st.button("Submit Answer 2"):
         st.session_state.answer2=answer2
         st.session_state.score2= calculate_and_display_score([questions[1]], [st.session_state.answer2], st.session_state.email)
         st.write(f"Score for Q2: {st.session_state.score2}")
@@ -122,21 +122,21 @@ def main():
 
     answer3 = st.text_input(f"Q3: {questions[2]}", key="answer_2")
     
-    if(st.button("Submit Answer 3"):
+    if st.button("Submit Answer 3"):
         st.session_state.answer3=answer3
         st.session_state.score3= calculate_and_display_score([questions[2]], [st.session_state.answer3], st.session_state.email)
         st.write(f"Score for Q3: {st.session_state.score3}")
 
     answer4 = st.text_input(f"Q4: {questions[3]}", key="answer_3")
 
-    if(st.button("Submit Answer 4"):
+    if st.button("Submit Answer 4"):
         st.session_state.answer4=answer4
         st.session_state.score4= calculate_and_display_score([questions[3]], [st.session_state.answer4], st.session_state.email)
         st.write(f"Score for Q4: {st.session_state.score4}")   
 
     answer5 = st.text_input(f"Q5: {questions[4]}", key="answer_4")
 
-    if(st.button("Submit Answer 5"):
+    if st.button("Submit Answer 5"):
         st.session_state.answer5=answer5
         st.session_state.score5= calculate_and_display_score([questions[4]], [st.session_state.answer5], st.session_state.email)
         st.write(f"Score for Q5: {st.session_state.score5}") 
