@@ -1,3 +1,6 @@
+pip install openai
+
+
 import streamlit as st
 import requests
 # import pymongo
