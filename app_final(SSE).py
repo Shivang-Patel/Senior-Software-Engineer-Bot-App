@@ -53,41 +53,6 @@ def final_submission(email, score, job_id):
         print('Status code:', response.status_code)
         print('Response:', response.text)
 
-    
-
-# Function to save data to MongoDB
-# def save_to_mongodb(email, score):
-#     client = pymongo.MongoClient("mongodb+srv://mahirakajaria:NL1htAGffe0TLscA@cluster0.estoffi.mongodb.net/")
-#     db = client["test"]
-#     # collection = db['testScore']
-#     user_collection = db['users']
-#     cvs_collection = db['cvs']
-
-#     user = user_collection.find_one({'email': email})
-
-#     if user:
-#         user_id = user['_id']
-#     else:
-#         print("Candidate email not found.")
-#         exit()
-    
-#     job_id = "6789"  # Replace with the actual job ID
-
-#     update_result = cvs_collection.update_one(
-#         {'jobId': job_id, 'owner': user_id},
-#         {'$set': {'testScore': score}}
-#     )
-
-#     entry = {
-#         'jobid': job_id,
-#         'email': email,
-#         'score': score
-#     }
-#     # collection.insert_one(entry)
-#     client.close()
-
-
-# ...
 
 def initialize_session_state():
     if "questions" not in st.session_state:
@@ -109,24 +74,20 @@ def main():
     question_index = st.session_state.question_index
     questions = st.session_state.questions
     
-    if question_index < len(questions):
-        current_question = questions[question_index]
-        answer = st.text_area(f"Q{question_index+1}: {current_question}")
-        st.session_state.answers.append(answer)
+    with st.form(key='interview_form'):
+        for question_index, current_question in enumerate(questions):
+            answer = st.text_area(f"Q{question_index+1}: {current_question}")
+            st.session_state.answers.append(answer)
         
-        if st.button("Next"):
-            st.session_state.question_index += 1
-    else:
-        st.write("All questions answered. Click 'Submit' to see your score.")
-    
-    if st.button("Submit"):
-        answers = st.session_state.answers
-        score = calculate_and_display_score(questions, answers, email)
+        submitted = st.form_submit_button("Submit")
         
-        if score is not None:
-            st.success(f"Your Score: {score}")
-            # save_to_mongodb(email, score)
-            final_submission(email, score, "6789")
+        if submitted:
+            answers = st.session_state.answers
+            score = calculate_and_display_score(questions, answers, email)
+            
+            if score is not None:
+                st.success(f"Your Score: {score}")
+                final_submission(email, score, "6789")
 
 if __name__ == "__main__":
     main()
