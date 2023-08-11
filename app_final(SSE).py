@@ -111,20 +111,20 @@ def get_score(questions, answers, email):
 
 def main():
     st.title("xsBot.ai")
-
+    
     st.write(f"Role: {FIXED_JOB_DESCRIPTION}")
-
+    
     initialize_session_state()
 
     email = st.text_input("Enter your email:")
-
+    
     question_index = st.session_state.question_index
     questions = st.session_state.questions
 
     if question_index < len(questions):
         current_question = questions[question_index]
-        answer = st.text_area(f"Q{question_index + 1}: {current_question}")
-
+        answer = st.text_area(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
+        
         if st.button("Next"):
             st.session_state.answers.append(answer)
             st.session_state.question_index += 1
@@ -133,13 +133,12 @@ def main():
 
     if st.button("Submit"):
         answers = st.session_state.answers
-        score =get_Score(questions, answers, email)
+        score = get_score(questions, answers, email)
 
         if score is not None:
             st.success(f"Your Score: {score}")
             # save_to_mongodb(email, score)
             final_submission(email, score, "6789")
-
 
 if __name__ == "__main__":
     main()
