@@ -147,7 +147,7 @@ def main():
         st.write(f"Score for Q4: {st.session_state.score4}")   
 
     # if q4:
-     answer5 = st.text_input(f"Q5: {questions[4]}", key="answer_4")
+    answer5 = st.text_input(f"Q5: {questions[4]}", key="answer_4")
     
     if st.button("Submit Answer 5"):
         st.session_state.answer5=answer5
