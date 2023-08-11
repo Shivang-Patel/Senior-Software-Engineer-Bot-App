@@ -114,7 +114,9 @@ def main():
     
     st.write(f"Role: {FIXED_JOB_DESCRIPTION}")
     
-    # initialize_session_state()
+    # Fetch interview questions and store them in session state
+    questions = get_interview_questions()
+    st.session_state.questions = questions
 
     email = st.text_input("Enter your email:")
     
