@@ -73,43 +73,41 @@ def main():
     initialize_session_state()
 
     email = st.text_input("Enter your email:")
-    
-    question_index = st.session_state.question_index
-    questions = st.session_state.questions
 
-    final_score=0
-    
-    if question_index < len(questions):
-        current_question = questions[question_index]
-        
-        # Use a unique key for each text_area to avoid rendering issues
-        answer = st.text_input(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
-        
-        if st.button("Next"):
-            st.session_state.answers.append(answer)  # Append answer to the list
-            
-            # Calculate the score for the current question
-            score = calculate_and_display_score([current_question], [answer], email)
-            
-            # Display the calculated score for the current question
-            if score is not None:
-                st.write(f"Score for Q{question_index+1}: {score}")
-                final_score = final_score + score
-            
-            st.session_state.question_index += 1
-    else:
-        st.write("All questions answered. Click 'Generate Score' to see your score.")
-    
-    if st.button("Generate Score"):
-        answers = st.session_state.answers
-        # score = calculate_and_display_score(questions, answers, email)
-        st.success(f"Your Score: {final_score}")
-        st.write("You can now close the tab")
-        
-        # # if score is not None:
-        #     st.success(f"Your Score: {score}")
-        #     final_submission(email, score, "6789")
+    if st.button("Submit Email"):
+        st.session_state.email = email
 
+    if "email" in st.session_state:
+        question_index = st.session_state.question_index
+        questions = st.session_state.questions
+
+        final_score = 0
+
+        if question_index < len(questions):
+            current_question = questions[question_index]
+
+            # Use a unique key for each text_area to avoid rendering issues
+            answer = st.text_input(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
+
+            if st.button("Next"):
+                st.session_state.answers.append(answer)  # Append answer to the list
+
+                # Calculate the score for the current question
+                score = calculate_and_display_score([current_question], [answer], st.session_state.email)
+
+                # Display the calculated score for the current question
+                if score is not None:
+                    st.write(f"Score for Q{question_index+1}: {score}")
+                    final_score = final_score + score
+
+                st.session_state.question_index += 1
+        else:
+            st.write("All questions answered. Click 'Generate Score' to see your score.")
+
+        if st.button("Generate Score"):
+            answers = st.session_state.answers
+            st.success(f"Your Score: {final_score}")
+            st.write("You can now close the tab")
 
 if __name__ == "__main__":
     main()
