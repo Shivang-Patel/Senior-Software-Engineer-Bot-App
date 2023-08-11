@@ -73,6 +73,8 @@ def main():
     
     question_index = st.session_state.question_index
     questions = st.session_state.questions
+
+    final_score=0
     
     if question_index < len(questions):
         current_question = questions[question_index]
@@ -82,15 +84,19 @@ def main():
         
         if st.button("Next"):
             st.session_state.answers.append(answer)  # Append answer to the list
+            score= calculate_and_display_score([current_question],[answer],[email])
+            final_score= final_score + score
             st.session_state.question_index += 1
     else:
-        st.write("All questions answered. Click 'Submit' to see your score.")
+        st.write("All questions answered. Click 'Generate Score' to see your score.")
     
-    if st.button("Submit"):
+    if st.button("Generate Score"):
         answers = st.session_state.answers
-        score = calculate_and_display_score(questions, answers, email)
+        # score = calculate_and_display_score(questions, answers, email)
+        st.success(f"Your Score: {final_score}")
+        st.write("You can now close the tab")
         
-        if score is not None:
+        # if score is not None:
             st.success(f"Your Score: {score}")
             final_submission(email, score, "6789")
 
