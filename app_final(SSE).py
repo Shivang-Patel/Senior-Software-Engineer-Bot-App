@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 # import pymongo
 import random
-import openai
+# import openai
 
 # API URLs
 QUESTION_API_URL = "https://axisapi.onrender.com/Question"
