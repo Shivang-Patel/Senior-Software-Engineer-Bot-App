@@ -55,7 +55,6 @@ def final_submission(email, score, job_id):
 
 
 def initialize_session_state():
-    def initialize_session_state():
     if "questions" not in st.session_state:
         st.session_state.questions = get_interview_questions()
 
