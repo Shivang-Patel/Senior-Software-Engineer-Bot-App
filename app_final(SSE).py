@@ -92,55 +92,40 @@ def final_submission(email, score, job_id):
 
 # ...
 
-def get_question_score(question,response):
-    prompt = "The question is: "+question+" The answer is: "+response+" Rate the response out of 10 (You can use decimals). \
-    The answer should be specific to role mentioned in the question. JUST MENTION THE SCORE(just numerical value) \
-    AND NOTHING ELSE."
-    answer= openai.Completion.create(
-        engine="text-davinci-002",  # Use appropriate engine (GPT-3) or any upgraded version
-        prompt=prompt,
-        max_tokens=150,  # Adjust this to control the response length
-        stop=None,  # Stop sequences if necessary
-        n=1,  # Number of questions to generate
-    )
-    score = answer['choices'][0]['text']
-    return score
+def initialize_session_state():
+    if "questions" not in st.session_state:
+        st.session_state.questions = get_interview_questions()
 
-def get_score(questions, answers, email):
-    score=0
-    for i in range(0, len(questions)):
-        curr_score= get_question_score(questions[i], answers[i])
-        score=score+curr_score
-    return {email, score}
+    if "question_index" not in st.session_state:
+        st.session_state.question_index = 0
+        st.session_state.answers = []
 
 def main():
     st.title("xsBot.ai")
     
     st.write(f"Role: {FIXED_JOB_DESCRIPTION}")
     
-    # Fetch interview questions and store them in session state
-    questions = get_interview_questions()
-    st.session_state.questions = questions
+    initialize_session_state()
 
     email = st.text_input("Enter your email:")
     
     question_index = st.session_state.question_index
     questions = st.session_state.questions
-
+    
     if question_index < len(questions):
         current_question = questions[question_index]
-        answer = st.text_area(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
+        answer = st.text_area(f"Q{question_index+1}: {current_question}")
+        st.session_state.answers.append(answer)
         
         if st.button("Next"):
-            st.session_state.answers.append(answer)
             st.session_state.question_index += 1
     else:
         st.write("All questions answered. Click 'Submit' to see your score.")
-
+    
     if st.button("Submit"):
         answers = st.session_state.answers
-        score = get_score(questions, answers, email)
-
+        score = calculate_and_display_score(questions, answers, email)
+        
         if score is not None:
             st.success(f"Your Score: {score}")
             # save_to_mongodb(email, score)
