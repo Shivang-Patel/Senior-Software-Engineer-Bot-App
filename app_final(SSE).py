@@ -96,9 +96,9 @@ def main():
         st.success(f"Your Score: {final_score}")
         st.write("You can now close the tab")
         
-        # if score is not None:
-            st.success(f"Your Score: {score}")
-            final_submission(email, score, "6789")
+        # # if score is not None:
+        #     st.success(f"Your Score: {score}")
+        #     final_submission(email, score, "6789")
 
 
 if __name__ == "__main__":
