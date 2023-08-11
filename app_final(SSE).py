@@ -84,23 +84,25 @@ def main():
         final_score = 0
 
         if question_index < len(questions):
+            st.session_state.question_index += 1  # Increment question index
+            
             current_question = questions[question_index]
-
+            
             # Use a unique key for each text_area to avoid rendering issues
             answer = st.text_input(f"Q{question_index+1}: {current_question}", key=f"answer_{question_index}")
-
+            
             if st.button("Next"):
                 st.session_state.answers.append(answer)  # Append answer to the list
-
+        
                 # Calculate the score for the current question
                 score = calculate_and_display_score([current_question], [answer], st.session_state.email)
-
+        
                 # Display the calculated score for the current question
                 if score is not None:
                     st.write(f"Score for Q{question_index+1}: {score}")
                     final_score = final_score + score
-
-                st.session_state.question_index += 1
+        
+                st.experimental_rerun()  # Force UI update
         else:
             st.write("All questions answered. Click 'Generate Score' to see your score.")
 
