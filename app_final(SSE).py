@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 # import pymongo
 import random
+import json
 # import openai
 
 # API URLs
@@ -38,13 +39,18 @@ def calculate_and_display_score(questions, answers, email):
         return None
     
 def final_submission(email, score, job_id):
-    params = {
+    data = {
         'email': email,
         'score': score,
         'job_id': job_id
     }
 
-    response= requests.post(SUBMIT_API_URL, params=params)
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.post(SUBMIT_API_URL, data=json.dumps(data), headers=headers)
+    
     if response.status_code == 200:
         print('POST request successful')
         print('Response:', response.text)
@@ -52,7 +58,6 @@ def final_submission(email, score, job_id):
         print('POST request failed')
         print('Status code:', response.status_code)
         print('Response:', response.text)
-
 
 def initialize_session_state():
     if "questions" not in st.session_state:
