@@ -113,7 +113,7 @@ def main():
         st.write(f"Score for Q1: {st.session_state.score1}")
 
 
-    # answer2 = st.text_input(f"Q2: {questions[1]}", key="answer_1")
+    answer2 = st.text_input(f"Q2: {questions[1]}", key="answer_1")
     
     if st.button("Submit Answer 2"):
         st.session_state.answer2=answer2
@@ -121,14 +121,14 @@ def main():
         st.write(f"Score for Q2: {st.session_state.score2}")
 
 
-    # answer3 = st.text_input(f"Q3: {questions[2]}", key="answer_2")
+    answer3 = st.text_input(f"Q3: {questions[2]}", key="answer_2")
     
     if st.button("Submit Answer 3"):
         st.session_state.answer3=answer3
         st.session_state.score3= calculate_and_display_score([questions[2]], [st.session_state.answer3], st.session_state.email)
         st.write(f"Score for Q3: {st.session_state.score3}")
 
-    # answer4 = st.text_input(f"Q4: {questions[3]}", key="answer_3")
+    answer4 = st.text_input(f"Q4: {questions[3]}", key="answer_3")
 
     if st.button("Submit Answer 4"):
         st.session_state.answer4=answer4
